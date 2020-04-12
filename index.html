@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Поделить траты поровну</title>
+    <link rel="apple-touch-icon" sizes="180x180" href="favicon/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon/favicon-16x16.png">
+    <link rel="manifest" href="manifest.webmanifest">
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.11/dist/vue.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.8.2/css/bulma.min.css">
+  </head>
+  <body>
+    <div id="app">
+      <section class="hero is-small is-info">
+        <div class="hero-body">
+          <div class="container">
+            <h1 class="title is-5 has-text-centered">
+              Укажите траты каждого участника
+            </h1>
+          </div>
+        </div>
+      </section>
+      <template>
+        <section class="hero is-small">
+          <div class="hero-body">
+            <div class="container">
+              <div class="columns is-centered">
+                <div class="column is-5-tablet is-4-desktop is-3-widescreen is-mobile">
+                  <div v-for="(person, index) in persons" :key="person.avatar" class="level is-mobile">
+                    <div class="level-item">
+                      <p class="is-size-4">{{person.avatar}}</p>
+                    </div>
+                    <div class="level-item">
+                      <input v-model.number="person.sum" ref="input" @input="clearTransfers()"
+                              class="input" type="number" size="10" placeholder="Сумма">
+                    </div>
+                    <div class="level-item">
+                      <button :style="{'visibility': index > 1 ? 'visible' : 'hidden'}" @click="remove(person)" class="delete is-large"></button>
+                    </div>
+                  </div>
+                  <div class="level is-mobile">
+                    <div class="level-left">
+                      <div class="level-item">
+                        <button @click="add()" :disabled="!canAdd" class="button is-info">Добавить</button>
+                      </div>
+                    </div>
+                    <div class="level-right">
+                      <div class="level-item">
+                        <div v-if="canCalc" class="control">
+                          <button @click="calc()" class="button is-success">Рассчитать</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <article v-if="transfers.length > 0" class="message is-primary">
+                    <div class="message-header">
+                      <p>Такие переводы надо совершить, чтобы все потратили поровну</p>
+                    </div>
+                    <div class="message-body">
+                      <p v-for="transfer in transfers" :key="transfer.id" class="has-text-centered">
+                        {{transfer.from}} переводит <strong>{{transfer.pay}}</strong> для {{transfer.to}}  
+                      </p>
+                    </div>
+                  </article>
+                  <article v-if="showNoTransfers" class="message is-primary">
+                    <div class="message-header">
+                      <p>Все потратили поровну, ничего переводить не надо!</p>
+                    </div>
+                    <div class="message-body">
+                      <p class="has-text-centered">👌</p>
+                    </div>
+                  </article>
+                  <article v-if="luckyOnes.length > 0" class="message is-warning">
+                    <div class="message-header">
+                      <p v-if="luckyOnes.length > 1">
+                        Этим ребятам повезло, они потратили на 1 рубль меньше. Но иначе было нельзя
+                      </p>
+                      <p v-if="luckyOnes.length === 1">
+                        У нас есть один счастливчик, который потратил на 1 рубль меньше. Но иначе было нельзя
+                      </p>
+                    </div>
+                    <div class="message-body has-text-centered">
+                      <span v-for="lucky in luckyOnes" :key="lucky.avatar" class="has-text-centered">
+                        {{lucky.avatar}} 
+                      </span>
+                    </div>
+                  </article>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>  
+      </template>
+    </div>
+    <script src="index.js"></script>
+  </body>
+</html>
