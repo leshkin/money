@@ -27,7 +27,7 @@
           <div class="hero-body">
             <div class="container">
               <div class="columns is-centered">
-                <div class="column is-5-tablet is-4-desktop is-3-widescreen is-mobile">
+                <div class="column is-6-tablet is-5-desktop is-4-widescreen">
                   <div v-for="(person, index) in persons" :key="person.avatar" class="level is-mobile">
                     <div class="level-item">
                       <p class="is-size-4">{{person.avatar}}</p>
@@ -54,7 +54,7 @@
                       </div>
                     </div>
                   </div>
-                  <article v-if="transfers.length > 0" class="message is-primary">
+                  <article v-if="transfers.length > 0" class="message is-primary is-medium">
                     <div class="message-header">
                       <p>Такие переводы надо совершить, чтобы все потратили поровну</p>
                     </div>
@@ -64,7 +64,7 @@
                       </p>
                     </div>
                   </article>
-                  <article v-if="showNoTransfers" class="message is-primary">
+                  <article v-if="showNoTransfers" class="message is-primary is-medium">
                     <div class="message-header">
                       <p>Все потратили поровну, ничего переводить не надо!</p>
                     </div>
@@ -72,13 +72,13 @@
                       <p class="has-text-centered">👌</p>
                     </div>
                   </article>
-                  <article v-if="luckyOnes.length > 0" class="message is-warning">
+                  <article v-if="luckyOnes.length > 0" class="message is-warning is-medium">
                     <div class="message-header">
                       <p v-if="luckyOnes.length > 1">
                         Этим ребятам повезло, они потратили на 1 рубль меньше. Но иначе было нельзя
                       </p>
                       <p v-if="luckyOnes.length === 1">
-                        У нас есть один счастливчик, который потратил на 1 рубль меньше. Но иначе было нельзя
+                        У нас есть один счастливчик, который потратил на 1 рубль меньше. Но иначе пришлось бы иметь дело с копейками. Ой-ой-ой!
                       </p>
                     </div>
                     <div class="message-body has-text-centered">
