@@ -1,6 +1,7 @@
 {
     "name": "Поделить траты поровну",
     "short_name": "Поровну",
+    "description": "Приложение помогает поровну разделить совместные траты",
     "icons": [
         {
             "src": "favicon/android-chrome-192x192.png",
@@ -13,7 +14,7 @@
             "type": "image/png"
         }
     ],
-    "start_url": "index.html",
+    "start_url": "/index.html",
     "theme_color": "#ffffff",
     "background_color": "#ffffff",
     "display": "standalone"
