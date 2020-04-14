@@ -20,6 +20,15 @@
         });
       }
     </script>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-163651591-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'UA-163651591-1');
+    </script>
   </head>
   <body>
     <div id="app">
@@ -44,32 +53,30 @@
                     </div>
                     <div class="level-item">
                       <input v-model.number="person.sum" ref="input" @input="clearTransfers()"
-                             class="input has-text-weight-medium" type="number" size="10"
+                             class="input is-medium has-text-weight-medium" type="number" size="10"
                              placeholder="Сумма">
                     </div>
                     <div class="level-item">
-                      <button :style="{'visibility': index > 1 ? 'visible' : 'hidden'}" @click="remove(person)" class="delete is-large"></button>
+                      <button @click="remove(person)" class="delete is-large"></button>
                     </div>
                   </div>
                   <div class="level is-mobile">
                     <div class="level-left">
                       <div class="level-item">
-                        <button @click="add()" :disabled="!canAdd" class="button is-info has-text-weight-medium">
+                        <button v-if="canAdd" @click="add()" class="button is-info has-text-weight-semibold">
                           Добавить
                         </button>
                       </div>
                     </div>
                     <div class="level-right">
                       <div class="level-item">
-                        <div v-if="canCalc" class="control">
-                          <button @click="calc()" class="button is-success has-text-weight-medium">
-                            Рассчитать
-                          </button>
-                        </div>
+                        <button v-if="canCalc" @click="calc()" class="button is-success has-text-weight-semibold">
+                          Рассчитать
+                        </button>
                       </div>
                     </div>
                   </div>
-                  <article v-if="transfers.length > 0" class="message is-primary is-medium">
+                  <article v-if="transfers.length > 0" class="message is-dark is-medium">
                     <div class="message-header">
                       <p>Такие переводы надо совершить, чтобы все потратили поровну</p>
                     </div>
@@ -90,10 +97,12 @@
                   <article v-if="luckyOnes.length > 0" class="message is-warning is-medium">
                     <div class="message-header">
                       <p v-if="luckyOnes.length > 1">
-                        Этим ребятам повезло, они потратили на 1 рубль меньше. Но иначе пришлось бы иметь дело с копейками. О, нееет!!!
+                        Этим ребятам повезло, они потратили на 1 рубль меньше.
+                        Но иначе пришлось бы иметь дело с копейками. Ой-ой-ой!!!
                       </p>
                       <p v-if="luckyOnes.length === 1">
-                        У нас есть один счастливчик, который потратил на 1 рубль меньше. Но иначе пришлось бы иметь дело с копейками. О, нееет!!!
+                        У нас есть один счастливчик, который потратил на 1 рубль меньше.
+                        Но иначе пришлось бы иметь дело с копейками. О, нееет!!!
                       </p>
                     </div>
                     <div class="message-body has-text-centered">

@@ -2,7 +2,7 @@ const AVATARS = [
   '😼',
   '🐶',
   '🐮',
-  '🐺',
+  '🦆',
   '🦊',
   '🐷',
   '🐼',
@@ -15,38 +15,46 @@ const AVATARS = [
   '🐛',
   '🐟',
   '🦔',
-  '🦁'
+  '🦁',
+  '🐭'
 ]
 
 var app = new Vue({
   el: '#app',
+
   data: {
     persons: [],
     transfers: [],
     luckyOnes: [],
     showNoTransfers: false
   },
+
   computed: {
     canAdd: function() {
       return this.persons.length < AVATARS.length;
     },
+
     canCalc: function() {
-      return this.persons.length > 1 && this.persons.every(p => p.sum > 0);
+      return this.persons.length > 1 && this.persons.every(p => p.sum === 0 || p.sum > 0);
     }
   },
+
   created: function() {
     this.shuffle(AVATARS);
-    this.persons.push({avatar: AVATARS[0], sum: null});
-    this.persons.push({avatar: AVATARS[1], sum: null});
+    this.persons.push({avatar: AVATARS[0], sum: null, count: 1});
+    this.persons.push({avatar: AVATARS[1], sum: null, count: 1});
     this.$nextTick(() => this.$refs.input[0].focus());
   },
+
   methods: {
     add: function() {
       this.clearTransfers();
-      if (this.canAdd) {
-        this.persons.push({avatar: AVATARS[this.persons.length], sum: null}); 
-      }
+      this.persons.push({avatar: AVATARS[this.persons.length], sum: null, count: 1}); 
       this.$nextTick(() => this.$refs.input[this.persons.length-1].focus());
+    },
+
+    addCount: function(person) {
+      person.count++;
     },
 
     remove: function(person) {
