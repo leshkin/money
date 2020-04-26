@@ -80,9 +80,22 @@
                 </div>
                 <div class="message-body has-text-centered">👌</div>
               </article>
-              <article v-if="complete" class="message is-dark is-medium">
-                <div class="message-body">
-                  <p>Общая сумма <strong>{{sum}}</strong>, с каждого по <strong>{{share}}.</strong></p>
+              <article v-if="complete" class="message is-info is-medium">
+                <div class="message-header">
+                  <p>Для информации</p>
+                </div>
+                <div class="message-body has-text-dark">
+                  <p>Общая сумма <strong>{{sum}}</strong><p>
+                  <p>С каждого по <strong>{{share}}</strong></p>
+                </div>
+              </article>
+              <article class="message is-dark is-medium">
+                <div class="message-header">
+                  <p>Знаете ли вы?</p>
+                </div>
+                <div class="message-body has-text-dark">
+                  <p>Кабан🐗 тратит деньги в одиночку. Лисички🦊🦊 — парой, но платит за всё Лис.
+                     Кликните на аватарку, чтобы создать группу участников.</p>
                 </div>
               </article>
             </div>
@@ -101,6 +114,14 @@
 
   .table td {
     border-width: 0px !important;
+  }
+
+  .table td:first-child {
+    padding-left: 0;
+  }
+
+  .table td:last-child {
+    padding-right: 0;
   }
 </style>
 
@@ -220,7 +241,3 @@
     }
   }
 </script>
-
-<style>
-
-</style>
