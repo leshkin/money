@@ -16,7 +16,7 @@
             <div class="column is-7-tablet is-6-desktop is-5-widescreen">
               <table class="table is-fullwidth">
                 <tr>
-                  <td colspan="4" class="has-text-right">
+                  <td colspan="5" class="has-text-right">
                     <label class="checkbox has-text-weight-medium is-size-6">
                       <input type="checkbox" v-model="showNameColumn"> показать имена
                     </label>
@@ -24,21 +24,24 @@
                 </tr>
                 <tr v-for="p in participants" :key="p.id">
                   <td v-if="showNameColumn">
-                    <input v-model.number="p.name" ref="input" @input="clearTransfers()"
+                    <input v-model="p.name" @input="clearTransfers()"
                            class="input has-text-weight-medium"
                            type="text"
                            placeholder="Имя">
                   </td>
                   <td>
-                    <span @click="addRemoveOne(p)"
+                    <span @click="addRemoveOneInGroup(p)"
                           class="is-size-4 has-text-right avatar">{{showAvatar(p.id)}}</span>
                   </td>
                   <td>
-                    <input v-model.number="p.sum" ref="input" @input="clearTransfers()"
+                    <input :value="p.value"
+                           @input="setValue(p, $event.target.value)"
+                           ref="input"
                            class="input has-text-weight-medium"
-                           type="number"
-                           size="5"
+                           type="text"
+                           inputmode="tel"
                            placeholder="Сумма">
+                    <strong v-if="isPlusSign(p)" class="is-size-6">= {{p.sum}}</strong>
                   </td>
                   <td class="has-text-right">
                     <span @click="remove(p)" class="is-size-7 has-text-right avatar">❌</span>
@@ -64,10 +67,10 @@
               </div>
               <article v-if="transfers.length > 0" class="message is-warning is-medium">
                 <div class="message-header">
-                  <p>Такие переводы надо совершить, чтобы все потратили поровну</p>
+                  <p>Делим траты поровну</p>
                 </div>
                 <div class="message-body has-text-dark">
-                  <p v-for="transfer in transfers" :key="transfer.id" class="has-text-centered">
+                  <p v-for="transfer in transfers" :key="transfer.id">
                     <strong>{{showParticipant(transfer.from)}}</strong> переводит
                     <strong>{{transfer.pay}}</strong> для
                     <strong>{{showParticipant(transfer.to)}}</strong>
@@ -94,9 +97,13 @@
                   <p>Знаете ли вы?</p>
                 </div>
                 <div class="message-body has-text-dark">
-                  <p><strong>Кабан🐗</strong> тратит деньги в одиночку.</p>
-                  <p><strong>Лисички🦊🦊</strong> — парой, но платит за всё Лис.
-                     Кликните на аватарку, чтобы создать группу участников.</p>
+                  <p>
+                    Что кликнув на аватарку, можно создать группу до трёх участников.
+                  </p>
+                  <p>
+                    Например, <strong>кабанчик🐗</strong> тратит деньги в одиночку,
+                    а <strong>лисички🦊🦊</strong> — парой, но платит за всё Лис.
+                  </p>
                 </div>
               </article>
             </div>
@@ -158,13 +165,13 @@
     },
 
     created: function() {
-      this._add();
-      this._add();
+      this.addOneParticipant();
+      this.addOneParticipant();
       this.$nextTick(() => this.$refs.input[0].focus());
     },
 
     methods: {
-      _add: function() {
+      addOneParticipant: function() {
         if (this.avatars.length > 0) {
           const index = Math.floor(Math.random() * this.avatars.length);
           this.participants.push({
@@ -172,6 +179,7 @@
             avatar: this.avatars[index],
             name: '',
             sum: null,
+            value: '',
             count: 1
           });
           this.avatars.splice(index, 1);
@@ -180,11 +188,11 @@
 
       add: function() {
         this.clearTransfers();
-        this._add();
+        this.addOneParticipant();
         this.$nextTick(() => this.$refs.input[this.participants.length-1].focus());
       },
 
-      addRemoveOne: function(p) {
+      addRemoveOneInGroup: function(p) {
         this.clearTransfers();
         if (this.previousAction === 'add') {
           if (p.count < 3) {
@@ -229,6 +237,23 @@
           result = result + p.avatar;
         }
         return result;
+      },
+
+      isPlusSign: function(p) {
+        if (p.value && p.value.indexOf('+') > -1) {
+          return true;
+        } else {
+          return false;
+        }
+      },
+
+      setValue: function(p, value) {
+        this.clearTransfers();
+        if (value.match(/^[0-9\\+]*$/)) {
+          const terms = value.split('+').map(v => Number(v) || 0);
+          p.sum = terms.reduce((acc, cur) => acc + cur, 0);
+          p.value = value;
+        }
       },
 
       showParticipant: function(id) {
