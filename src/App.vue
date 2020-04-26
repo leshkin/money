@@ -88,6 +88,7 @@
                   <p>Для информации</p>
                 </div>
                 <div class="message-body has-text-dark">
+                  <p>Всего участников <strong>{{allParticipants}}</strong>
                   <p>Общая сумма <strong>{{sum}}</strong><p>
                   <p>С каждого по <strong>{{share}}</strong></p>
                 </div>
@@ -96,11 +97,12 @@
                 <div class="message-header">
                   <p>Знаете ли вы?</p>
                 </div>
-                <div class="message-body has-text-dark">
+                <div class="message-body has-text-dark content">
                   <p>
                     Кликнув на аватарку, можно создать группу до трёх участников.
                     Например, <strong>кабанчик🐗</strong> тратит деньги в одиночку,
                     а <strong>лисички🦊🦊</strong> — парой, но платит за всё Лис.
+                    Поэтому всего участников трое, а деньги переводятся между двумя.
                   </p>
                   <p>
                     В полях ввода можно использовать символ <strong>+</strong> для сложения трат.
@@ -162,6 +164,10 @@
 
       canCalculate: function() {
         return this.participants.length > 1 && this.participants.every(p => p.sum === 0 || p.sum > 0);
+      },
+
+      allParticipants: function() {
+        return this.participants.reduce((acc, cur) => acc + cur.count, 0);
       }
     },
 
