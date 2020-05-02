@@ -163,4 +163,109 @@ describe('algorithm module', () => {
       }
     )
   })
+
+  it('#transfers should calculate transfers for special cases', () => {
+    let participants = [
+      {
+        id: 1,
+        sum: 250,
+        count: 1
+      },
+      {
+        id: 2,
+        sum: 750,
+        count: 1
+      },
+      {
+        id: 3,
+        sum: 200,
+        count: 1
+      },
+      {
+        id: 4,
+        sum: 600,
+        count: 1
+      },
+      {
+        id: 5,
+        sum: 600,
+        count: 1
+      },
+      {
+        id: 6,
+        sum: 600,
+        count: 1
+      }
+    ]
+
+    expect(transfers(participants)).toEqual(
+      {
+        sum: 3000,
+        share: 500,
+        transfers: [
+          { from: 1, pay: 250, to: 2 },
+          { from: 3, pay: 100, to: 4 },
+          { from: 3, pay: 100, to: 5 },
+          { from: 3, pay: 100, to: 6 }
+        ]
+      }
+    )
+
+    participants = [
+      {
+        id: 1,
+        sum: 250,
+        count: 1
+      },
+      {
+        id: 2,
+        sum: 750,
+        count: 1
+      },
+      {
+        id: 3,
+        sum: 700,
+        count: 1
+      },
+      {
+        id: 4,
+        sum: 300,
+        count: 1
+      },
+      {
+        id: 5,
+        sum: 200,
+        count: 1
+      },
+      {
+        id: 6,
+        sum: 600,
+        count: 1
+      },
+      {
+        id: 7,
+        sum: 600,
+        count: 1
+      },
+      {
+        id: 8,
+        sum: 600,
+        count: 1
+      }
+    ]
+
+    expect(transfers(participants)).toEqual(
+      {
+        sum: 4000,
+        share: 500,
+        transfers: [
+          { from: 4, pay: 200, to: 3 },
+          { from: 1, pay: 250, to: 2 },
+          { from: 5, pay: 100, to: 6 },
+          { from: 5, pay: 100, to: 7 },
+          { from: 5, pay: 100, to: 8 }
+        ]
+      }
+    )
+  })
 })
