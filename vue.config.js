@@ -11,11 +11,12 @@ module.exports = {
   },
   pwa: {
     name: 'Money Split',
+    start_url: 'https://leshkin.github.io/money',
     themeColor: '#ffffff',
     msTileColor: "#ffffff",
-    appleMobileWebAppCache: "yes",
+    appleMobileWebAppCache: 'yes',
     manifestOptions: {
-      background_color: "#ffffff"
+      background_color: '#ffffff'
     },
     workboxOptions: {
       skipWaiting: true
