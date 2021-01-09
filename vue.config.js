@@ -8,5 +8,17 @@ module.exports = {
       .use('i18n')
       .loader('@kazupon/vue-i18n-loader')
       .end()
+  },
+  pwa: {
+    name: 'Money Split',
+    themeColor: '#ffffff',
+    msTileColor: "#ffffff",
+    appleMobileWebAppCache: "yes",
+    manifestOptions: {
+      background_color: "#ffffff"
+    },
+    workboxOptions: {
+      skipWaiting: true
+    }
   }
 }
