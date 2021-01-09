@@ -8,8 +8,8 @@
         </h1>
       </div>
       <div class="column is-one-fifth has-text-right">
-        <router-link v-if="locale === 'en'" to="/money/ru" class="mt-1 mr-1">🇷🇺</router-link>
-        <router-link v-if="locale === 'ru'" to="/money/en" class="mt-1 mr-1">🇬🇧</router-link>
+        <router-link v-if="locale === 'en'" to="/ru" class="mt-1 mr-1">🇷🇺</router-link>
+        <router-link v-if="locale === 'ru'" to="/en" class="mt-1 mr-1">🇬🇧</router-link>
       </div>
     </div>
     <section class="hero is-small">
@@ -70,7 +70,7 @@
               </div>
               <article v-if="transfers.length > 0" class="message is-warning is-medium">
                 <div class="message-header">
-                  <p>{{ $t('divide_spending_equally') }}</p>
+                  <p>{{ $t('split_spending_equally') }}</p>
                 </div>
                 <div class="message-body has-text-dark">
                   <p v-for="transfer in transfers" :key="transfer.id">
@@ -123,7 +123,7 @@
       "sum": "Sum",
       "add": "Add",
       "calculate": "Calculate",
-      "divide_spending_equally": "Divide spending equally",
+      "split_spending_equally": "Split spending equally",
       "transfer": "transfer",
       "to": "to",
       "all_spent_equally": "All spent equally, nothing to translate!",
@@ -132,7 +132,7 @@
       "total_sum": "Total sum",
       "from_each": "From each",
       "do_you_know": {
-        "title": "Do you know?",
+        "title": "Did you know?",
         "first": "By clicking on the avatar, you can create a group of up to three members. For example, <strong>hog 🐗</strong> spends money alone, and <strong>foxes 🦊🦊</strong> spend money as a couple, but only one of them pays for everything. Therefore, there are three participants in total, and only two are involved in transfers.",
         "second": "In the input fields you can use the <strong>+</strong> symbol to add more expenses."
       }
@@ -145,7 +145,7 @@
       "sum": "Сумма",
       "add": "Добавить",
       "calculate": "Рассчитать",
-      "divide_spending_equally": "Делим траты поровну",
+      "split_spending_equally": "Делим траты поровну",
       "transfer": "переводит",
       "to": "для",
       "all_spent_equally": "Все потратили поровну, ничего переводить не надо!",
@@ -219,17 +219,17 @@
 
     created: function() {
       if (
-        this.$router.currentRoute.path.replace(/\/$/, '') !== '/money/en'
-        && this.$router.currentRoute.path.replace(/\/$/, '') !== '/money/ru'
+        this.$router.currentRoute.path !== '/en'
+        && this.$router.currentRoute.path !== '/ru'
       ) {
         if (navigator.language.slice(0, 2).toLowerCase() === 'ru') {
-          this.$router.push('/money/ru')
+          this.$router.push('ru')
         } else {
-          this.$router.push('/money/en')
+          this.$router.push('en')
         }
       }
 
-      if (this.$router.currentRoute.path.replace(/\/$/, '') === '/money/ru') {
+      if (this.$router.currentRoute.path === '/ru') {
         this.setLocale('ru')
       } else {
         this.setLocale('en')
@@ -242,7 +242,7 @@
 
     watch: {
       $route(to) {
-        if (to.path === '/money/ru') {
+        if (to.path === '/ru') {
           this.setLocale('ru')
         } else {
           this.setLocale('en')

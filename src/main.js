@@ -9,7 +9,6 @@ Vue.use(VueRouter)
 Vue.use(VueI18n)
 
 const router = new VueRouter({
-  mode: 'history',
   routes: [
     { path: '/', component: App }
   ]
