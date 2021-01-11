@@ -1,2 +1,6 @@
 node_modules
 dist
+
+# Certificates for local development
+cert.pem
+key.pem

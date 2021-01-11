@@ -3,6 +3,7 @@ import VueRouter from 'vue-router'
 import VueI18n from 'vue-i18n'
 import App from './App.vue'
 import 'bulma/css/bulma.min.css'
+import './registerServiceWorker'
 
 Vue.config.productionTip = false
 Vue.use(VueRouter)

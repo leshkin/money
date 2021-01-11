@@ -11,9 +11,8 @@ module.exports = {
   },
   pwa: {
     name: 'Money Split',
-    start_url: 'https://leshkin.github.io/money',
-    themeColor: '#ffffff',
-    msTileColor: "#ffffff",
+    themeColor: '#000000',
+    msTileColor: "#000000",
     appleMobileWebAppCache: 'yes',
     manifestOptions: {
       background_color: '#ffffff'
