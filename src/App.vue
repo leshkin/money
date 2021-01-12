@@ -8,8 +8,8 @@
         </h1>
       </div>
       <div class="column is-one-fifth has-text-right">
-        <router-link v-if="locale === 'en'" to="/ru" class="mt-1 mr-1">🇷🇺</router-link>
-        <router-link v-if="locale === 'ru'" to="/en" class="mt-1 mr-1">🇬🇧</router-link>
+        <router-link replace v-if="locale === 'en'" to="/ru" class="mt-1 mr-1">🇷🇺</router-link>
+        <router-link replace v-if="locale === 'ru'" to="/en" class="mt-1 mr-1">🇬🇧</router-link>
       </div>
     </div>
     <section class="hero is-small">
@@ -223,9 +223,9 @@
         && this.$router.currentRoute.path !== '/ru'
       ) {
         if (navigator.language.slice(0, 2).toLowerCase() === 'ru') {
-          this.$router.push('ru')
+          this.$router.replace('ru')
         } else {
-          this.$router.push('en')
+          this.$router.replace('en')
         }
       }
 
