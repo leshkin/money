@@ -7,7 +7,7 @@
           {{ $t('header') }}
         </h1>
       </div>
-      <div class="column is-one-fifth has-text-right">
+      <div class="column is-one-fifth has-text-right is-size-5">
         <router-link replace v-if="locale === 'en'" to="/ru" class="mt-1 mr-1">🇷🇺</router-link>
         <router-link replace v-if="locale === 'ru'" to="/en" class="mt-1 mr-1">🇬🇧</router-link>
       </div>
