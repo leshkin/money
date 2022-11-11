@@ -64,3 +64,7 @@ http-server -S -C cert.pem dist
 ### Open in browser
 
 https://localhost:8080
+
+## Production
+
+The application is automatically deployed to the Netlify server after each commit: https://moneysplit.netlify.app/
