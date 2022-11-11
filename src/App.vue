@@ -329,10 +329,13 @@
 
       setValue: function(p, value) {
         this.clearTransfers()
-        if (value.match(/^[0-9\\+]*$/)) {
-          const terms = value.split('+').map(v => Number(v) || 0)
+        if (value.match(/^([0-9]*[.,]?[0-9]+[+])*([0-9]*[.,]?[0-9]+)$/)) {
+          const terms = value.replaceAll(',', '.').split('+').map(v => Number(v) || 0)
           p.sum = terms.reduce((acc, cur) => acc + cur, 0)
           p.value = value
+        }
+        if (p.value === '') {
+          p.sum = null
         }
       },
 
